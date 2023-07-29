@@ -10,9 +10,11 @@ public static class Ai
     public static async Task HandleMessage(SocketUserMessage message)
     {
         var text = message.Content.TrimStart().RemoveStart("<@1109341287372554250>").Trim();
+        
         var response = await OpenAi.Chat.GetChatCompletionAsync(
             new OpenAi.Chat.Message[]
         {
+            new("system", SystemPrompts.UwuMewMew),
             new("user", text)
         });
 

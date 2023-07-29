@@ -8,8 +8,11 @@ public static class MessageHandler
     {
         if (msg is not SocketUserMessage message)
             return;
+        
+        if(message.Author.Id != 687600977830084696)
+            return;
 
-        if(message.MentionedUsers.Contains(Bot.Client.CurrentUser))
+        if(message.MentionedUsers.Select(u => u.Id).Contains(Bot.Client.CurrentUser.Id))
             await Ai.HandleMessage(message);
     }
 }

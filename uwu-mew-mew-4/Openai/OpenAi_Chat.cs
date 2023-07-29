@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Dynamic;
-using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
@@ -14,7 +12,7 @@ public static partial class OpenAi
     public static class Chat
     {
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public record Message(string role, string content, string name = "", JObject? function_call = null);
+        public record struct Message(string role, string content, string? name = null, JObject? function_call = null);
 
         public struct Result
         {
@@ -42,7 +40,7 @@ public static partial class OpenAi
         /// <returns>A task with value of <see cref="Result"/></returns>
         public static async Task<Result> GetChatCompletionAsync(IEnumerable<Message> messages,
             string model = "gpt-3.5-turbo", double temperature = 1, double topP = 1, int n = 1,
-            object stop = null, int? maxTokens = null, double presencePenalty = 0, double frequencyPenalty = 0, 
+            object? stop = null, int? maxTokens = null, double presencePenalty = 0, double frequencyPenalty = 0, 
             Dictionary<string, double>? logitBias = null, string? user = null, IReadOnlyList<JObject>? functions = null)
         {
             var requestBody = new Dictionary<string, object>
@@ -124,7 +122,7 @@ public static partial class OpenAi
         /// <returns>An IAsyncEnumerable of <see cref="Result"/>.</returns>
         public static async IAsyncEnumerable<Result> StreamChatCompletion(IEnumerable<Message> messages,
             string model = "gpt-3.5-turbo", double temperature = 1, double topP = 1, int n = 1,
-            object stop = null, int? maxTokens = null, double presencePenalty = 0, double frequencyPenalty = 0,
+            object? stop = null, int? maxTokens = null, double presencePenalty = 0, double frequencyPenalty = 0,
             Dictionary<string, double>? logitBias = null, string? user = null, IReadOnlyList<JObject>? functions = null)
         {
             var requestBody = new Dictionary<string, object>

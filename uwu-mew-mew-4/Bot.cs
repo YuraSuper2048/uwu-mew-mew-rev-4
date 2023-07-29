@@ -27,7 +27,7 @@ public static class Bot
 
         await Task.Delay(-1);
     }
-
+    
     private static async Task Ready()
     {
         Console.Write("Ready.");

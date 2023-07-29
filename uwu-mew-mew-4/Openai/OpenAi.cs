@@ -2,6 +2,6 @@
 
 public static partial class OpenAi
 {
-    private static readonly string Endpoint = Environment.GetEnvironmentVariable("OPENAI_API_ENDPOINT")!.TrimEnd('/');
+    private static readonly string Endpoint = (Environment.GetEnvironmentVariable("OPENAI_API_ENDPOINT") ?? "https://api.openai.com/v1").TrimEnd('/');
     private static readonly string Key = Environment.GetEnvironmentVariable("OPENAI_API_KEY")!;
 }

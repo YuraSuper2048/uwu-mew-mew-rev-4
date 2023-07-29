@@ -1,6 +1,6 @@
 ﻿namespace uwu_mew_mew_4.Internal;
 
-public static class StringExtensions
+internal static class StringExtensions
 {
     public static string RemoveStart(this string s, string toRemove)
     {
