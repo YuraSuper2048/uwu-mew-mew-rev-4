@@ -1,5 +1,4 @@
 ﻿using System.Dynamic;
-using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,7 +19,7 @@ public static partial class OpenAi
 
             var request = new HttpRequestMessage(HttpMethod.Post, $"{Endpoint}/images/generations");
             request.Content = content;
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Key);
+            request.Headers.Authorization = new("Bearer", Key);
 
             var response = await HttpClientFactory.Instance.SendAsync(request);
             response.EnsureSuccessStatusCode();

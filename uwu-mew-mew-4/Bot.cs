@@ -13,7 +13,7 @@ public static class Bot
         config.GatewayIntents = GatewayIntents.AllUnprivileged
                                 | GatewayIntents.MessageContent
                                 | GatewayIntents.GuildMembers;
-        Client = new DiscordSocketClient(config);
+        Client = new(config);
 
         Client.Ready += Ready;
         Client.MessageReceived += MessageHandler.MessageReceived;
@@ -27,7 +27,7 @@ public static class Bot
 
         await Task.Delay(-1);
     }
-    
+
     private static async Task Ready()
     {
         Console.Write("Ready.");
