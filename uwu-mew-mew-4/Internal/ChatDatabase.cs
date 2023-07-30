@@ -19,8 +19,8 @@ public static class ChatDatabase
 
         await using var reader = command.ExecuteReader();
         await reader.ReadAsync();
-        return !reader.HasRows ? 
-            new() 
+        return !reader.HasRows
+            ? new()
             : JsonConvert.DeserializeObject<List<OpenAi.Chat.Message>>((string)reader["messages"])!;
     }
 

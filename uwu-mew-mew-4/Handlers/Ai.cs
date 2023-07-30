@@ -1,7 +1,5 @@
-﻿using System.Data.SQLite;
-using Discord;
+﻿using Discord;
 using Discord.WebSocket;
-using Newtonsoft.Json;
 using uwu_mew_mew_4.Internal;
 using uwu_mew_mew_4.Openai;
 
@@ -25,12 +23,12 @@ public static class Ai
             };
             messages.AddRange(userMessages);
 
-            var response = await OpenAi.Chat.GetChatCompletionAsync(messages);
+            var response = await OpenAi.Chat.GetChatCompletionAsync(messages, temperature: 0.6);
 
             userMessages.Add(new("assistant", response.Content!));
             await ChatDatabase.Set(message.Author.Id, userMessages);
 
-            await message.ReplyAsync(response.Content, 
+            await message.ReplyAsync(response.Content,
                 components: new ComponentBuilder()
                     .WithButton("Reset", "reset", ButtonStyle.Secondary, Emoji.Parse(":broom:"))
                     .Build());
