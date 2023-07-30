@@ -9,55 +9,40 @@ namespace uwu_mew_mew_4.Handlers;
 
 public static class Ai
 {
-    private const string ConnectionString = "Data Source=uwu_mew_mew.db";
-
     public static async Task HandleMessage(SocketUserMessage message)
     {
-        var text = message.Content.TrimStart().RemoveStart("<@1109341287372554250>").Trim();
-
-        var userMessages = GetUserMessages(message.Author.Id);
-        userMessages.Add(new("user", text));
-
-        var messages = new List<OpenAi.Chat.Message>
+        var typing = message.Channel.EnterTypingState();
+        try
         {
-            new("system", SystemPrompts.UwuMewMew)
-        };
-        messages.AddRange(userMessages);
+            var text = message.Content.TrimStart().RemoveStart("<@1109341287372554250>").Trim();
 
-        var response = await OpenAi.Chat.GetChatCompletionAsync(messages);
+            var userMessages = await ChatDatabase.Get(message.Author.Id);
+            userMessages.Add(new("user", text));
 
-        userMessages.Add(new("assistant", response.Content!));
-        SetUserMessages(message.Author.Id, userMessages);
+            var messages = new List<OpenAi.Chat.Message>
+            {
+                new("system", SystemPrompts.UwuMewMew)
+            };
+            messages.AddRange(userMessages);
 
-        await message.ReplyAsync(response.Content);
+            var response = await OpenAi.Chat.GetChatCompletionAsync(messages);
+
+            userMessages.Add(new("assistant", response.Content!));
+            await ChatDatabase.Set(message.Author.Id, userMessages);
+
+            await message.ReplyAsync(response.Content, 
+                components: new ComponentBuilder()
+                    .WithButton("Reset", "reset", ButtonStyle.Secondary, Emoji.Parse(":broom:"))
+                    .Build());
+        }
+        finally
+        {
+            typing.Dispose();
+        }
     }
 
-    private static List<OpenAi.Chat.Message> GetUserMessages(ulong userId)
+    public static async Task Reset(ulong userId)
     {
-        using var connection = new SQLiteConnection(ConnectionString);
-        connection.Open();
-
-        var command = new SQLiteCommand(connection);
-        command.CommandText = "SELECT * FROM chats WHERE user_id = @user";
-        command.Parameters.AddWithValue("@user", userId);
-
-        using var reader = command.ExecuteReader();
-        reader.Read();
-        return !reader.HasRows ? 
-            new() 
-            : JsonConvert.DeserializeObject<List<OpenAi.Chat.Message>>((string)reader["messages"])!;
-    }
-
-    private static void SetUserMessages(ulong userId, List<OpenAi.Chat.Message> messages)
-    {
-        using var connection = new SQLiteConnection(ConnectionString);
-        connection.Open();
-
-        var command = new SQLiteCommand(connection);
-
-        command.CommandText = "INSERT OR REPLACE INTO chats (user_id, messages) VALUES (@user, @messages)";
-        command.Parameters.AddWithValue("@user", userId);
-        command.Parameters.AddWithValue("@messages", JsonConvert.SerializeObject(messages));
-        command.ExecuteNonQuery();
+        await ChatDatabase.Delete(userId);
     }
 }

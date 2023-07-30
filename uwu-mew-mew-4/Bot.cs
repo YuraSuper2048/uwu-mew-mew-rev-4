@@ -1,4 +1,5 @@
-﻿using Discord;
+﻿using System.Diagnostics;
+using Discord;
 using Discord.WebSocket;
 
 namespace uwu_mew_mew_4;
@@ -16,7 +17,8 @@ public static class Bot
         Client = new(config);
 
         Client.Ready += Ready;
-        Client.MessageReceived += MessageHandler.MessageReceived;
+        Client.MessageReceived += MainHandler.OnMessageReceived;
+        Client.ButtonExecuted += MainHandler.OnButtonExecuted;
 
         await Client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable("DISCORD_AUTH_TOKEN"));
         await Client.StartAsync();
@@ -31,5 +33,14 @@ public static class Bot
     private static async Task Ready()
     {
         Console.Write("Ready.");
+
+        while (true)
+        {
+            var command = Console.ReadLine();
+            if (command == "brk")
+            {
+                Debugger.Break();
+            }
+        }
     }
 }
