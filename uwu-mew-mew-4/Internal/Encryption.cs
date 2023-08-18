@@ -4,7 +4,7 @@ using Konscious.Security.Cryptography;
 
 namespace uwu_mew_mew_4.Internal;
 
-public static class Encryption
+internal static class Encryption
 {
     private const int IvLength = 16;
 

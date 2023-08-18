@@ -1,6 +1,6 @@
 ﻿using Discord.WebSocket;
 using uwu_mew_mew_4.Handlers;
-
+#pragma warning disable CS1998
 #pragma warning disable CS4014
 
 namespace uwu_mew_mew_4;

@@ -39,6 +39,10 @@ public static class Ai
         }
     }
 
+
+
+    private static EmbedBuilder GetEmbed() => new EmbedBuilder();
+
     public static async Task Reset(ulong userId)
     {
         await ChatDatabase.Delete(userId);

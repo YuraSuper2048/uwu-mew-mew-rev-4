@@ -4,7 +4,7 @@ using uwu_mew_mew_4.Openai;
 
 namespace uwu_mew_mew_4.Internal;
 
-public static class ChatDatabase
+internal static class ChatDatabase
 {
     private const string ConnectionString = "Data Source=uwu_mew_mew.db";
 

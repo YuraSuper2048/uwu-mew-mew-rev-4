@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
+#pragma warning disable CS8618
 
 namespace uwu_mew_mew_4;
 
@@ -16,17 +17,29 @@ public static class Bot
 
     private static async Task Ready()
     {
-        Console.WriteLine("Ready.");
+        Console.WriteLine($"Ready at {DateTimeOffset.Now}.");
 
+        await KeepAlive();
+    }
+
+    private static async Task KeepAlive()
+    {
+        var reconnects = new List<DateTimeOffset>();
         while (true)
         {
             await Task.Delay(TimeSpan.FromSeconds(30));
-
             if (Client.ConnectionState == ConnectionState.Connected) continue;
+            
+            if (reconnects.Select(d => (DateTimeOffset.UtcNow - d).TotalMinutes < 60).Count() > 45)
+                await Task.Delay(TimeSpan.FromMinutes(2));
+            
             await Task.Delay(TimeSpan.FromSeconds(10));
             if (Client.ConnectionState == ConnectionState.Connected) continue;
 
-            await InitClient();
+            reconnects.Add(DateTimeOffset.UtcNow);
+            await Client.LogoutAsync();
+            await Client.DisposeAsync();
+            var task = InitClient();
             return;
         }
     }
@@ -48,6 +61,15 @@ public static class Bot
 
         await Client.SetStatusAsync(UserStatus.Online);
 
-        Console.Write("Loading... ");
+        Console.WriteLine($"Connecting to Discord at {DateTimeOffset.Now}...");
     }
+    
+    private static readonly Color[] ColorPalette = new Color[]
+    {
+        new(255, 182, 193),
+        new(255, 250, 205),
+        new(230, 230, 250),
+        new(255, 218, 185),
+        new(152, 251, 152)
+    };
 }
