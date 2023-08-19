@@ -17,7 +17,7 @@ public static class Bot
 
     private static async Task Ready()
     {
-        Console.WriteLine($"Ready at {DateTimeOffset.Now}.");
+        Console.WriteLine($"[{DateTimeOffset.Now}] Ready.");
 
         await KeepAlive();
     }
@@ -61,14 +61,12 @@ public static class Bot
 
         await Client.SetStatusAsync(UserStatus.Online);
 
-        Console.WriteLine($"Connecting to Discord at {DateTimeOffset.Now}...");
+        Console.WriteLine($"[{DateTimeOffset.Now}] Connecting to Discord...");
     }
     
-    private static readonly Color[] ColorPalette = new Color[]
+    public static readonly Color[] ColorPalette = 
     {
         new(255, 182, 193),
-        new(255, 250, 205),
-        new(230, 230, 250),
         new(255, 218, 185),
         new(152, 251, 152)
     };

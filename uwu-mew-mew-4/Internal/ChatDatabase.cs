@@ -8,7 +8,7 @@ internal static class ChatDatabase
 {
     private const string ConnectionString = "Data Source=uwu_mew_mew.db";
 
-    public static async Task<List<OpenAi.Chat.Message>> Get(ulong userId)
+    public static async Task<List<OpenAi.Chat.Message>> GetAsync(ulong userId)
     {
         await using var connection = new SQLiteConnection(ConnectionString);
         await connection.OpenAsync();
@@ -24,7 +24,7 @@ internal static class ChatDatabase
             : JsonConvert.DeserializeObject<List<OpenAi.Chat.Message>>((string)reader["messages"])!;
     }
 
-    public static async Task Set(ulong userId, List<OpenAi.Chat.Message> messages)
+    public static async Task SetAsync(ulong userId, List<OpenAi.Chat.Message> messages)
     {
         await using var connection = new SQLiteConnection(ConnectionString);
         await connection.OpenAsync();
@@ -37,7 +37,7 @@ internal static class ChatDatabase
         await command.ExecuteNonQueryAsync();
     }
 
-    public static async Task Delete(ulong userId)
+    public static async Task DeleteAsync(ulong userId)
     {
         await using var connection = new SQLiteConnection(ConnectionString);
         await connection.OpenAsync();

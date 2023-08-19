@@ -2,7 +2,7 @@
 
 internal static class RandomExtensions
 {
-    public static T RandomItem<T>(this Random random, IList<T> collection)
+    public static T NextAsItem<T>(this Random random, IList<T> collection)
     {
         return collection[random.Next(0, collection.Count)];
     } 
