@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qWdzAEqRgD4YQ/Y4VlLgxicAZF6WL9gJoWoniPCSulU2qh7+HkXc+79WihRTfz7Rm1lWtSGUE7P4POvw2VQcdg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\SimpleOpenAi\\SimpleOpenAi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\YuraSuper2048\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,5 +1,8 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using uwu_mew_mew_4.Internal;
+using Color = Discord.Color;
+
 #pragma warning disable CS8618
 
 namespace uwu_mew_mew_4;
@@ -17,7 +20,8 @@ public static class Bot
 
     private static async Task Ready()
     {
-        Console.WriteLine($"[{DateTimeOffset.Now}] Ready.");
+        Logger.WriteLine("Ready.");
+        var onReady = BotEventHandler.OnReady();
 
         await KeepAlive();
     }
@@ -53,17 +57,19 @@ public static class Bot
         Client = new(config);
 
         Client.Ready += Ready;
-        Client.MessageReceived += MainHandler.OnMessageReceived;
-        Client.ButtonExecuted += MainHandler.OnButtonExecuted;
+        Client.MessageReceived += BotEventHandler.OnMessageReceived;
+        Client.ButtonExecuted += BotEventHandler.OnButtonExecuted;
+        Client.SelectMenuExecuted += BotEventHandler.OnSelectMenuExecuted;
+        Client.SlashCommandExecuted += BotEventHandler.OnSlashCommandExecuted;
 
         await Client.LoginAsync(TokenType.Bot, Environment.GetEnvironmentVariable("DISCORD_AUTH_TOKEN"));
         await Client.StartAsync();
 
         await Client.SetStatusAsync(UserStatus.Online);
 
-        Console.WriteLine($"[{DateTimeOffset.Now}] Connecting to Discord...");
+        Logger.WriteLine("Connecting to Discord...");
     }
-    
+
     public static readonly Color[] ColorPalette = 
     {
         new(255, 182, 193),

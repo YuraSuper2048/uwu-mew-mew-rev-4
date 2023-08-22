@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using uwu_mew_mew_4.Internal;
 
-namespace uwu_mew_mew_4.Openai;
+namespace SimpleOpenAi;
 
 public static partial class OpenAi
 {
@@ -34,11 +34,13 @@ public static partial class OpenAi
         /// <param name="logitBias">Modify the likelihood of specified tokens appearing in the completion.</param>
         /// <param name="user">A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.</param>
         /// <param name="functions">A list of functions the model may generate JSON inputs for.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>A task with value of <see cref="Result" /></returns>
-        public static async Task<Result> GetChatCompletionAsync(IEnumerable<Message> messages,
+        public static async Task<Result> CreateAsync(IEnumerable<Message> messages,
             string model = "gpt-3.5-turbo", double temperature = 1, double topP = 1, int n = 1,
             object? stop = null, int? maxTokens = null, double presencePenalty = 0, double frequencyPenalty = 0,
-            Dictionary<string, double>? logitBias = null, string? user = null, IReadOnlyList<JObject>? functions = null)
+            Dictionary<string, double>? logitBias = null, string? user = null, IReadOnlyList<JObject>? functions = null,
+            CancellationToken cancellationToken = default)
         {
             var requestBody = new Dictionary<string, object>
             {
@@ -81,17 +83,17 @@ public static partial class OpenAi
                 requestBody.Add("function_call", "auto");
             }
 
-            var json = JsonConvert.SerializeObject(requestBody);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var requestJson = JsonConvert.SerializeObject(requestBody);
+            var content = new StringContent(requestJson, Encoding.UTF8, "application/json");
 
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{Endpoint}/chat/completions");
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{Base}/chat/completions");
             request.Content = content;
             request.Headers.Authorization = new("Bearer", Key);
 
-            var response = await HttpClientFactory.Instance.SendAsync(request);
+            var response = await HttpClient.SendAsync(request, cancellationToken);
             response.EnsureSuccessStatusCode();
 
-            var responseBody = JObject.Parse(await response.Content.ReadAsStringAsync());
+            var responseBody = JObject.Parse(await response.Content.ReadAsStringAsync(cancellationToken));
             return new()
             {
                 Raw = responseBody,
@@ -125,11 +127,13 @@ public static partial class OpenAi
         /// <param name="logitBias">Modify the likelihood of specified tokens appearing in the completion.</param>
         /// <param name="user">A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.</param>
         /// <param name="functions">A list of functions the model may generate JSON inputs for.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>An IAsyncEnumerable of <see cref="Result" />.</returns>
-        public static async IAsyncEnumerable<Result> StreamChatCompletion(IEnumerable<Message> messages,
+        public static async IAsyncEnumerable<Result> CreateStreaming(IEnumerable<Message> messages,
             string model = "gpt-3.5-turbo", double temperature = 1, double topP = 1, int n = 1,
             object? stop = null, int? maxTokens = null, double presencePenalty = 0, double frequencyPenalty = 0,
-            Dictionary<string, double>? logitBias = null, string? user = null, IReadOnlyList<JObject>? functions = null)
+            Dictionary<string, double>? logitBias = null, string? user = null, IReadOnlyList<JObject>? functions = null,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             var requestBody = new Dictionary<string, object>
             {
@@ -175,20 +179,22 @@ public static partial class OpenAi
 
             var content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
 
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{Endpoint}/chat/completions");
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{Base}/chat/completions");
             request.Content = content;
             request.Headers.Authorization = new("Bearer", Key);
 
-            var response = await HttpClientFactory.Instance.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+            var response = await HttpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
 
-            var stream = await response.Content.ReadAsStreamAsync();
+            var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
             var reader = new StreamReader(stream);
 
-            while (await reader.ReadLineAsync() is { } line)
+            while (await reader.ReadLineAsync(cancellationToken) is { } line)
             {
                 if (!line.ToLower().StartsWith("data:")) continue;
 
                 var dataString = line[5..].Trim();
+
+                if (dataString == "[DONE]") break;
 
                 var data = JObject.Parse(dataString);
 
