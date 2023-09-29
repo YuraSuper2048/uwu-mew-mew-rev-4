@@ -2228,40 +2228,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\YuraSuper2048\\.nuget\\packages\\": {},
-    "C:\\Users\\YuraSuper2048\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder": {}
+    "/home/yura/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\uwu-mew-mew-4\\uwu-mew-mew-4.csproj",
+      "projectUniqueName": "/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/uwu-mew-mew-4.csproj",
       "projectName": "uwu-mew-mew-4",
-      "projectPath": "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\uwu-mew-mew-4\\uwu-mew-mew-4.csproj",
-      "packagesPath": "C:\\Users\\YuraSuper2048\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\uwu-mew-mew-4\\obj\\",
+      "projectPath": "/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/uwu-mew-mew-4.csproj",
+      "packagesPath": "/home/yura/.nuget/packages/",
+      "outputPath": "/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Users\\YuraSuper2048\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\YuraSuper2048\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Users\\YuraSuper2048\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config"
+        "/home/yura/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.bepinex.dev/v3/index.json": {},
-        "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
-        "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5/nuget/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\SimpleOpenAi\\SimpleOpenAi.csproj": {
-              "projectPath": "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\SimpleOpenAi\\SimpleOpenAi.csproj"
+            "/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/SimpleOpenAi/SimpleOpenAi.csproj": {
+              "projectPath": "/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/SimpleOpenAi/SimpleOpenAi.csproj"
             }
           }
         }
@@ -2314,7 +2306,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.111/RuntimeIdentifierGraph.json"
       }
     }
   }

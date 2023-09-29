@@ -17,9 +17,9 @@ public static class Ai
     public static async Task HandleMessage(SocketUserMessage message)
     {
         if(message.Channel is IGuildChannel guildChannel)
-            Logger.WriteLine($"{message.Author.Username}@{guildChannel.Guild.Name} -> \"{message.CleanContent}\" ");
+            Logger.WriteLine($"{message.Author.Username}@{guildChannel.Guild.Name} -> \"{message.Content}\" ");
         else
-            Logger.WriteLine($"{message.Author.Username}@dm -> \"{message.CleanContent}\" ");
+            Logger.WriteLine($"{message.Author.Username}@dm -> \"{message.Content}\" ");
         
         var userId = message.Author.Id;
         
@@ -35,9 +35,10 @@ public static class Ai
         var typing = message.Channel.EnterTypingState();
         try
         {
-            var newText = message.CleanContent.TrimStart().RemoveStart("@uwu mew mew#7551").Trim();
+            var newText = message.Content.TrimStart().RemoveStart("<@1109341287372554250>").Trim();
 
-            var inputModeration = await OpenAi.Moderations.CreateAsync(newText, cancellationToken);
+            /*
+            var inputModeration = await OpenAi.Moderations.CreateAsync(newText, cancellationToken: cancellationToken);
             if (inputModeration.Flagged)
             {
                 var flaggedScores = inputModeration.CategoryScores.Where(kvp => inputModeration.Categories[kvp.Key]);
@@ -45,7 +46,8 @@ public static class Ai
                                          $"{string.Join('\n', flaggedScores.Select(kvp => $"{kvp.Key}: {kvp.Value.ToString(CultureInfo.InvariantCulture)}"))}");
                 return;
             }
-            
+            */
+
             var (userMessages, character) = await ChatDatabase.GetAsync(userId);
             userMessages ??= new();
             userMessages.Add(new("user", newText));
@@ -63,21 +65,14 @@ public static class Ai
             };
             messages.AddRange(userMessages);
 
-            var userHash = Convert.ToBase64String(
+            /*var userHash = Convert.ToBase64String(
                 SHA256.HashData(
                     Encoding.UTF8.GetBytes(
-                        $"uwumewmew{userId}umuwewwew")));
+                        $"uwumewmew{userId}{message.Author.Username}uwumrrp")));*/
             
             // ReSharper disable once MethodSupportsCancellation
             var stream = OpenAi.Chat.CreateStreaming
-                (messages, temperature: 0.6, model: "gpt-3.5-turbo",
-                    user: userHash, 
-                    logitBias: new()
-                    {
-                        {"43210", 2},
-                        {"23741", 2},
-                        {"52", 1}
-                    });
+                (messages, temperature: 0.6, model: "gpt-4");
             
             var contentBuilder = new StringBuilder();
 
@@ -91,7 +86,7 @@ public static class Ai
             
             userMessages.Add(new("assistant", ""));
             var streamMessage = await message.ReplyAsync(
-                text: "OwO thinking as hawd as i can~",
+                text: "mrrp meow... uwu...",
                 embed: embed.Build(),
                 components: new ComponentBuilder()
                     .WithButton(StopButton)
@@ -107,15 +102,19 @@ public static class Ai
                 userMessages.RemoveAt(userMessages.Count-1);
                 userMessages.Add(new("assistant", contentBuilder.ToString()));
 
-                await ChatDatabase.SetAsync(userId, new(userMessages, character));
-
                 if (stopwatch.ElapsedMilliseconds > 250)
                 {
-                    await streamMessage.ModifyAsync(m =>
-                    {
-                        m.Embed = embed.WithDescription(contentBuilder.ToString()).Build();
+                    var updateMessageTask = Task.Run(() => {
+                        lock (streamMessage){
+                            await streamMessage.ModifyAsync(m =>
+                            {
+                                m.Embed = embed.WithDescription(contentBuilder.ToString()).Build();
+                            });
+                        }
+
+                        await ChatDatabase.SetAsync(userId, new(userMessages, character));
+                        stopwatch.Restart();
                     });
-                    stopwatch.Restart();
                 }
                 
                 if(cancellationToken.IsCancellationRequested)

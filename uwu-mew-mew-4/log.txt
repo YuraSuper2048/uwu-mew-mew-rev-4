@@ -1,0 +1,81 @@
+[9/18/2023 3:54:26 PM +08:00] Connecting to Discord...
+[9/18/2023 3:54:28 PM +08:00] Ready.
+[9/18/2023 3:54:29 PM +08:00] Discord.Net.HttpException: The server responded with error 50001: Missing Access
+   at Discord.Net.Queue.RequestBucket.SendAsync(RestRequest request)
+   at Discord.Net.Queue.RequestQueue.SendAsync(RestRequest request)
+   at Discord.API.DiscordRestApiClient.SendInternalAsync(String method, String endpoint, RestRequest request)
+   at Discord.API.DiscordRestApiClient.SendAsync[TResponse](String method, String endpoint, BucketId bucketId, ClientBucketType clientBucket, RequestOptions options)
+   at Discord.API.DiscordRestApiClient.GetChannelAsync(UInt64 channelId, RequestOptions options)
+   at Discord.Rest.ClientHelper.GetChannelAsync(BaseDiscordClient client, UInt64 id, RequestOptions options)
+   at uwu_mew_mew_4.Bot.DumpAllAsync() in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Bot.cs:line 51
+   at uwu_mew_mew_4.Bot.Ready() in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Bot.cs:line 34
+[9/18/2023 4:20:02 PM +08:00] lumioze@r/ChatGPT -> "<@1109341287372554250> rdsfgdfgklj;dgffdghiodfgjdgfhnjkgfdbjikdfgbjhkdgf" 
+[9/18/2023 4:20:04 PM +08:00] Error: code = Error (1), message = System.Data.SQLite.SQLiteException (0x87AF001F): SQL logic error
+no such table: chats
+   at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
+   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
+   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
+   at System.Data.SQLite.SQLiteDataReader.NextResult()
+   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
+   at uwu_mew_mew_4.Internal.ChatDatabase.GetAsync(UInt64 userId) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Internal/ChatDatabase.cs:line 22
+   at uwu_mew_mew_4.Internal.ChatDatabase.GetAsync(UInt64 userId) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Internal/ChatDatabase.cs:line 29
+   at uwu_mew_mew_4.Handlers.Ai.HandleMessage(SocketUserMessage message) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Handlers/Ai.cs:line 49
+   at uwu_mew_mew_4.BotEventHandler.HandleMessage(SocketMessage msg) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/BotEventHandler.cs:line 33
+[9/18/2023 4:20:28 PM +08:00] lumioze@r/ChatGPT -> /image prompt:fgjiofgiopdfgiojdfgjpohdfjuhfijuhdfgiojhfghjofg steps:60 ratio:1:1 
+[9/18/2023 4:21:13 PM +08:00] Error: System.InvalidOperationException: The Application Default Credentials are not available. They are available if running in Google Compute Engine. Otherwise, the environment variable GOOGLE_APPLICATION_CREDENTIALS must be defined pointing to a file defining the credentials. See https://developers.google.com/accounts/docs/application-default-credentials for more information.
+   at Google.Apis.Auth.OAuth2.DefaultCredentialProvider.CreateDefaultCredentialAsync()
+   at Google.Api.Gax.Rest.ScopedCredentialProvider.CreateDefaultCredentialsUncached()
+   at Google.Api.Gax.TaskExtensions.WaitWithUnwrappedExceptions(Task task)
+   at Google.Api.Gax.TaskExtensions.ResultWithUnwrappedExceptions[T](Task`1 task)
+   at Google.Api.Gax.Rest.ScopedCredentialProvider.GetCredentials(GoogleCredential credentials)
+   at Google.Api.Gax.Rest.ClientBuilderBase`1.GetHttpClientInitializer()
+   at Google.Cloud.Storage.V1.StorageClientBuilder.GetHttpClientInitializer()
+   at Google.Api.Gax.Rest.ClientBuilderBase`1.CreateServiceInitializer()
+   at Google.Cloud.Storage.V1.StorageClientBuilder.CreateServiceInitializer()
+   at Google.Cloud.Storage.V1.StorageClientBuilder.Build()
+   at Google.Cloud.Storage.V1.StorageClient.Create()
+   at uwu_mew_mew.Misc.StableDiffusion.Upload(Byte[] image) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Internal/StableDiffusion.cs:line 54
+   at uwu_mew_mew_4.Handlers.ImageGeneration.GenerateImage(SocketSlashCommand arg) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Handlers/ImageGeneration.cs:line 45
+   at uwu_mew_mew_4.BotEventHandler.SlashCommandExecuted(SocketSlashCommand command) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/BotEventHandler.cs:line 57
+[9/18/2023 5:01:58 PM +08:00] yusp48@r/ChatGPT -> "<@1109341287372554250> broken bot" 
+[9/18/2023 5:02:02 PM +08:00] Error: code = Error (1), message = System.Data.SQLite.SQLiteException (0x87AF001F): SQL logic error
+no such table: chats
+   at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
+   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
+   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
+   at System.Data.SQLite.SQLiteDataReader.NextResult()
+   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
+   at uwu_mew_mew_4.Internal.ChatDatabase.GetAsync(UInt64 userId) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Internal/ChatDatabase.cs:line 22
+   at uwu_mew_mew_4.Internal.ChatDatabase.GetAsync(UInt64 userId) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Internal/ChatDatabase.cs:line 29
+   at uwu_mew_mew_4.Handlers.Ai.HandleMessage(SocketUserMessage message) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Handlers/Ai.cs:line 49
+   at uwu_mew_mew_4.BotEventHandler.HandleMessage(SocketMessage msg) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/BotEventHandler.cs:line 33
+[9/18/2023 5:03:21 PM +08:00] Connecting to Discord...
+[9/18/2023 5:03:23 PM +08:00] Ready.
+[9/18/2023 5:03:24 PM +08:00] Discord.Net.HttpException: The server responded with error 50001: Missing Access
+   at Discord.Net.Queue.RequestBucket.SendAsync(RestRequest request)
+   at Discord.Net.Queue.RequestQueue.SendAsync(RestRequest request)
+   at Discord.API.DiscordRestApiClient.SendInternalAsync(String method, String endpoint, RestRequest request)
+   at Discord.API.DiscordRestApiClient.SendAsync[TResponse](String method, String endpoint, BucketId bucketId, ClientBucketType clientBucket, RequestOptions options)
+   at Discord.API.DiscordRestApiClient.GetChannelAsync(UInt64 channelId, RequestOptions options)
+   at Discord.Rest.ClientHelper.GetChannelAsync(BaseDiscordClient client, UInt64 id, RequestOptions options)
+   at uwu_mew_mew_4.Bot.DumpAllAsync() in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Bot.cs:line 51
+   at uwu_mew_mew_4.Bot.Ready() in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Bot.cs:line 34
+[9/18/2023 5:03:43 PM +08:00] yusp48@r/ChatGPT -> "<@1109341287372554250> broken bot" 
+[9/18/2023 5:03:44 PM +08:00] Error: code = Error (1), message = System.Data.SQLite.SQLiteException (0x87AF001F): SQL logic error
+no such table: chats
+   at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, SQLiteCommand command, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
+   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
+   at System.Data.SQLite.SQLiteCommand.GetStatement(Int32 index)
+   at System.Data.SQLite.SQLiteDataReader.NextResult()
+   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader()
+   at uwu_mew_mew_4.Internal.ChatDatabase.GetAsync(UInt64 userId) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Internal/ChatDatabase.cs:line 22
+   at uwu_mew_mew_4.Internal.ChatDatabase.GetAsync(UInt64 userId) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Internal/ChatDatabase.cs:line 29
+   at uwu_mew_mew_4.Handlers.Ai.HandleMessage(SocketUserMessage message) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/Handlers/Ai.cs:line 49
+   at uwu_mew_mew_4.BotEventHandler.HandleMessage(SocketMessage msg) in /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/BotEventHandler.cs:line 33
+[9/29/2023 9:37:14 PM +08:00] Connecting to Discord...

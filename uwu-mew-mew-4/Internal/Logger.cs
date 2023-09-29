@@ -4,8 +4,8 @@ internal static class Logger
 {
     public static void WriteLine(string text)
     {
-        var log = $"[{DateTimeOffset.Now}] {text}";
-        Console.WriteLine(log);
+        var log = $"[{DateTimeOffset.Now}] {text}\n";
+        Console.Write(log);
         File.AppendAllText("log.txt", log);
     }
 }
