@@ -11,7 +11,7 @@ public static partial class OpenAi
     public static class Chat
     {
         /// <summary>
-        ///     Get chat completion from the OpenAI API.
+        ///     Creates a model response for the given chat conversation.
         /// </summary>
         /// <param name="messages">A list of messages comprising the conversation so far.</param>
         /// <param name="model">ID of the model to use.</param>
@@ -104,7 +104,7 @@ public static partial class OpenAi
         }
 
         /// <summary>
-        ///     Streams chat completion from the OpenAI API token by token.
+        ///     Streams a model response for the given chat conversation.
         /// </summary>
         /// <param name="messages">A list of messages comprising the conversation so far.</param>
         /// <param name="model">ID of the model to use.</param>

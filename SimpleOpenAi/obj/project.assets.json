@@ -55,33 +55,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\YuraSuper2048\\.nuget\\packages\\": {},
-    "C:\\Users\\YuraSuper2048\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder": {}
+    "/home/yura/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\SimpleOpenAi\\SimpleOpenAi.csproj",
+      "projectUniqueName": "/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/SimpleOpenAi/SimpleOpenAi.csproj",
       "projectName": "SimpleOpenAi",
-      "projectPath": "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\SimpleOpenAi\\SimpleOpenAi.csproj",
-      "packagesPath": "C:\\Users\\YuraSuper2048\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\YuraSuper2048\\RiderProjects\\uwu-mew-mew-4\\SimpleOpenAi\\obj\\",
+      "projectPath": "/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/SimpleOpenAi/SimpleOpenAi.csproj",
+      "packagesPath": "/home/yura/.nuget/packages/",
+      "outputPath": "/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/SimpleOpenAi/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Users\\YuraSuper2048\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\YuraSuper2048\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Users\\YuraSuper2048\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config"
+        "/home/yura/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {},
-        "https://nuget.bepinex.dev/v3/index.json": {},
-        "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-tools/nuget/v3/index.json": {},
-        "https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5/nuget/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
@@ -120,7 +112,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.111/RuntimeIdentifierGraph.json"
       }
     }
   }

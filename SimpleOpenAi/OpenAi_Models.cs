@@ -6,6 +6,10 @@ public static partial class OpenAi
 {
     public static class Models
     {
+        /// <summary>
+        /// Lists the currently available models
+        /// </summary>
+        /// <returns>Returns a IEnumerable of model ids.</returns>
         public static async Task<IEnumerable<string>> ListAsync(CancellationToken cancellationToken = default)
         {
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{Base}/models");

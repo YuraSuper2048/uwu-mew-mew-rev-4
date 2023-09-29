@@ -7,6 +7,7 @@ using Discord.WebSocket;
 using Newtonsoft.Json;
 using SimpleOpenAi;
 using uwu_mew_mew_4.Internal;
+using Nito.AsyncEx;
 
 namespace uwu_mew_mew_4.Handlers;
 
@@ -69,14 +70,16 @@ public static class Ai
                 SHA256.HashData(
                     Encoding.UTF8.GetBytes(
                         $"uwumewmew{userId}{message.Author.Username}uwumrrp")));*/
+
+            const string model = "gpt-4";
             
             // ReSharper disable once MethodSupportsCancellation
             var stream = OpenAi.Chat.CreateStreaming
-                (messages, temperature: 0.6, model: "gpt-4");
+                (messages, temperature: 0.6, model: model);
             
             var contentBuilder = new StringBuilder();
 
-            var embed = GetEmbed(character, character switch
+            var embed = GetEmbed(model, character, character switch
             {
                 "uwu mew mew" => "https://storage.googleapis.com/uwu-mew-mew/sbGPT.png",
                 "lordpandaspace" => "https://storage.googleapis.com/uwu-mew-mew/lordpandaspace.png",
@@ -94,6 +97,8 @@ public static class Ai
             typing.Dispose();
 
             var stopwatch = Stopwatch.StartNew();
+
+            var locked = false;
             
             // ReSharper disable once UseCancellationTokenForIAsyncEnumerable
             await foreach (var result in stream)
@@ -102,25 +107,38 @@ public static class Ai
                 userMessages.RemoveAt(userMessages.Count-1);
                 userMessages.Add(new("assistant", contentBuilder.ToString()));
 
-                if (stopwatch.ElapsedMilliseconds > 250)
+                async Task UpdateMessage()
                 {
-                    var updateMessageTask = Task.Run(() => {
-                        lock (streamMessage){
-                            await streamMessage.ModifyAsync(m =>
-                            {
-                                m.Embed = embed.WithDescription(contentBuilder.ToString()).Build();
-                            });
-                        }
+                    if (locked) return;
+                    if (stopwatch.ElapsedMilliseconds < 500) return;
 
-                        await ChatDatabase.SetAsync(userId, new(userMessages, character));
+                    locked = true;
+                    try
+                    {
+                        var options = new RequestOptions();
+                        options.RetryMode = RetryMode.AlwaysFail;
+                        await streamMessage.ModifyAsync(m =>
+                        {
+                            m.Embed = embed.WithDescription(contentBuilder.ToString()).Build();
+                        }, options: options);
+                    }
+                    finally
+                    {
+                        locked = false;
                         stopwatch.Restart();
-                    });
+                    }
+
+                    await ChatDatabase.SetAsync(userId, new(userMessages, character));
                 }
+
+                var task = UpdateMessage();
                 
                 if(cancellationToken.IsCancellationRequested)
                     break;
             }
-            
+
+            while (locked) await Task.Delay(1);
+
             await streamMessage.ModifyAsync(m =>
             {
                 m.Content = "";
@@ -145,12 +163,12 @@ public static class Ai
     private static readonly ButtonBuilder StopButton = 
         new("Stop", "ai-stop", ButtonStyle.Danger, emote: Emoji.Parse(":x:")); 
 
-    private static EmbedBuilder GetEmbed(string characterName, string pfpUrl, int messages) => new EmbedBuilder()
+    private static EmbedBuilder GetEmbed(string modelName, string characterName, string pfpUrl, int messages) => new EmbedBuilder()
         .WithColor(Random.Shared.NextAsItem(Bot.ColorPalette))
         .WithAuthor("uwu mew mew~", "https://storage.googleapis.com/uwu-mew-mew/sbGPT.png")
         .WithFooter($"{messages} messages")
         .WithCurrentTimestamp()
-        .WithTitle(characterName)
+        .WithTitle($"{modelName}/{characterName}")
         .WithThumbnailUrl(pfpUrl);
 
     private static readonly SelectMenuBuilder CharacterSelection = new SelectMenuBuilder()

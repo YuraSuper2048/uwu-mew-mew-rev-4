@@ -132,3 +132,11 @@ C:/Users/YuraSuper2048/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.
 /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/obj/Debug/net7.0/uwu-mew-mew-4.csproj.CopyComplete
 /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/obj/Debug/net7.0/uwu-mew-mew-4.genruntimeconfig.cache
 /media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/obj/Debug/net7.0/ref/uwu-mew-mew-4.dll
+/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.0/Nito.AsyncEx.Context.dll
+/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.0/Nito.AsyncEx.Coordination.dll
+/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.0/Nito.AsyncEx.Interop.WaitHandles.dll
+/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.0/Nito.AsyncEx.Oop.dll
+/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.0/Nito.AsyncEx.Tasks.dll
+/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.0/Nito.Cancellation.dll
+/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.0/Nito.Collections.Deque.dll
+/media/yura/Data/User/RiderProjects/uwu-mew-mew-4/uwu-mew-mew-4/bin/Debug/net7.0/Nito.Disposables.dll
