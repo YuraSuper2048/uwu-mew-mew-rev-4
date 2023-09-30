@@ -65,6 +65,7 @@ public static class Ai
                 })
             };
             messages.AddRange(userMessages);
+            messages.Add(new("system", SystemPrompts.Jailbreak));
 
             /*var userHash = Convert.ToBase64String(
                 SHA256.HashData(
